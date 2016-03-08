@@ -1,37 +1,43 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using AeroGear.Push;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
 using Android.Widget;
+using FHSDK;
 
 namespace pushstarter_android_app
 {
     [Activity(Label = "@string/notifications", MainLauncher = true, Theme = "@style/MyTheme.Base")]
     public class MessagesActivity : AppCompatActivity
     {
-        private PushStarterApplication _application;
         private ListView _listview;
+        private List<string> Messages { get; } = new List<string>();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            FH.RegisterPush(HandleEvent);
+
             SetContentView(Resource.Layout.messages);
 
-            _application = (PushStarterApplication) Application;
             var emptyView = FindViewById(Resource.Id.empty);
             _listview = FindViewById<ListView>(Resource.Id.messages);
             _listview.EmptyView = emptyView;
         }
 
-        private void AddNewMessage(Bundle bundle)
+        public void HandleEvent(object sender, PushReceivedEvent e)
         {
-            _application.Messages.Add(bundle.GetString("alert"));
-            DisplayMessages();
+            RunOnUiThread(() =>
+            {
+                Messages.Add(e.Args.Message);
+                DisplayMessages();
+            });
         }
 
         private void DisplayMessages()
         {
-            var adapter = new ArrayAdapter(ApplicationContext, Resource.Layout.message_item, _application.Messages);
+            var adapter = new ArrayAdapter<string>(ApplicationContext, Resource.Layout.message_item, Messages);
             _listview.Adapter = adapter;
         }
     }

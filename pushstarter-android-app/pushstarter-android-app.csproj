@@ -41,6 +41,9 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="aerogear-windows-push">
+      <HintPath>..\packages\aerogear-windows-push.0.1.0\lib\portable-net45+win8+wp8+wpa81\aerogear-windows-push.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -55,18 +58,22 @@
       <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.23.1.1.0\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xamarin.GooglePlayServices.Gcm">
+      <HintPath>..\..\fh-dotnet-sdk\xamarin\packages\Xamarin.GooglePlayServices.Gcm.29.0.0\lib\MonoAndroid41\Xamarin.GooglePlayServices.Gcm.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessagesActivity.cs" />
+    <Compile Include="PushMessageReceiver.cs" />
     <Compile Include="PushStarterApplication.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\fhconfig.properties" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
-    <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -75,7 +82,9 @@
     <AndroidResource Include="Resources\layout\message_item.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\messages.xml" />
+    <AndroidResource Include="Resources\layout\messages.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\register.xml" />
@@ -132,6 +141,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\fh-dotnet-sdk\FHSDK\FHSDK.csproj">
+      <Project>{ad87dbe9-8247-47cd-b6d2-16b63cbbc9e7}</Project>
+      <Name>FHSDK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\fh-dotnet-sdk\xamarin\FHXamarinAndroidSDK\FHXamarinAndroidSDK.csproj">
+      <Project>{46E20803-ED70-4605-A132-AC86D6BBCF52}</Project>
+      <Name>FHXamarinAndroidSDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
