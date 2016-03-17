@@ -34,17 +34,20 @@ If you wish to contribute to this template, the following information may be hel
 
 1. Clone this project
 
-2. Populate ```pushstarter-xamarin-app/fhconfig.plist``` with your values as explained [here](http://docs.feedhenry.com/v3/dev_tools/sdks/ios.html#ios-configure).
+2. Populate ```pushstarter-ios-app/fhconfig.plist``` with your values as explained [here](http://docs.feedhenry.com/v3/dev_tools/sdks/ios.html#ios-configure).
 
-3. Open pushstarter-xamarin-app.sln
+3. Open pushstarter-ios-app.sln
 
 4. Run the project
  
-## How does it work?
+## How does it work on iOS?
+
+Due to the fact that push is very platform specific, you'll need to do call different methods for the different platforms. 
+On iOS you need to do the following:
 
 ### FH registers for remote push notification
 
-In ```pushstarter-xamarin-app/ViewController.cs``` you register a handler that will be called for push messages:
+In ```pushstarter-ios-app/ViewController.cs``` you register a handler that will be called for push messages:
 
 ```csharp
 	NSNotificationCenter.DefaultCenter.AddObserver (new NSString("sucess_registered"), (NSNotification obj) => { // [1]
@@ -79,3 +82,22 @@ public override void DidReceiveRemoteNotification(UIApplication application, NSD
 }
 ```
 This will convert the message to use the same API as on windows and call the Handler that you used in the register call.
+
+## How does it work Android?
+
+### FH registers for remote push notification
+
+In ```pushstarter-android-app/MessageActivity.cs``` you register a handler that will be called for push messages:
+
+```csharp
+protected override void OnCreate(Bundle savedInstanceState)
+{
+	FH.RegisterPush(HandleEvent);
+	//...
+}
+
+public void HandleEvent(object sender, PushReceivedEvent e)
+```
+### Background notifications
+
+When your app is not yet started and a notification 'wakes' it, your implementation of `FeedHenryMessageReceiver` will be called to handle the message. See [PushMessageReceiver](pushstarter-android-app/PushMessageReceiver.cs) for a exmaple.
