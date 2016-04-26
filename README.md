@@ -50,11 +50,11 @@ On iOS you need to do the following:
 In ```pushstarter-ios-app/ViewController.cs``` you register a handler that will be called for push messages:
 
 ```csharp
-	NSNotificationCenter.DefaultCenter.AddObserver (new NSString("sucess_registered"), (NSNotification obj) => { // [1]
-		_isRegistered = true;
-		TableView.ReloadData();
-	});
-	FH.RegisterPush (HandleNotification); // [2]
+  NSNotificationCenter.DefaultCenter.AddObserver (new NSString("sucess_registered"), (NSNotification obj) => { // [1]
+    _isRegistered = true;
+    TableView.ReloadData();
+  });
+  FH.RegisterPush (HandleNotification); // [2]
 }
 
 void HandleNotification(object sender, PushReceivedEvent e)
@@ -67,7 +67,7 @@ In ```pushstarter-xamarin-app/AppDelegate.cs``` you finish the registration proc
 ```csharp
 public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
 {
-	FHClient.FinishRegistration (deviceToken);
+  FHClient.FinishRegistration (deviceToken);
 }
 ```
 
@@ -78,7 +78,7 @@ To receive notification, in ```pushstarter-xamarin-app/AppDelegate.cs```:
 ```csharp
 public override void DidReceiveRemoteNotification(UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
 {
-	FHClient.OnMessageReceived (userInfo);
+  FHClient.OnMessageReceived (userInfo);
 }
 ```
 This will convert the message to use the same API as on windows and call the Handler that you used in the register call.
@@ -92,8 +92,8 @@ In ```pushstarter-android-app/MessageActivity.cs``` you register a handler that 
 ```csharp
 protected override void OnCreate(Bundle savedInstanceState)
 {
-	FH.RegisterPush(HandleEvent);
-	//...
+  FH.RegisterPush(HandleEvent);
+  //...
 }
 
 public void HandleEvent(object sender, PushReceivedEvent e)
