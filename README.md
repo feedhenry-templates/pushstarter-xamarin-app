@@ -100,4 +100,4 @@ public void HandleEvent(object sender, PushReceivedEvent e)
 ```
 ### Background notifications
 
-When your app is not yet started and a notification 'wakes' it, your implementation of `FeedHenryMessageReceiver` will be called to handle the message. See [PushMessageReceiver](pushstarter-android-app/PushMessageReceiver.cs) for a exmaple.
+When your app is not yet started and a notification 'wakes' it, your implementation of `FeedHenryMessageReceiver` will be called to handle the message. See `pushstarter-android-app/PushMessageReceiver.cs` for a exmaple.
