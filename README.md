@@ -1,5 +1,7 @@
 # pushstarter-xamarin-app
 
+[![AppVeyor](https://img.shields.io/appveyor/ci/feedhenry-templates/pushstarter-xamarin-app/master.svg)](https://ci.appveyor.com/project/feedhenry/pushstarter-xamarin-app/) 
+
 Author: Erik Jan de Wit   
 Level: Intermediate  
 Technologies: C#, Xamarin, iOS, Android, RHMAP  
